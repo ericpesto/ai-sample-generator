@@ -7,7 +7,7 @@ def generate_wav(speed, mood, artists, sound_type):
     processor = AutoProcessor.from_pretrained("facebook/musicgen-small")
     model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-small")
     
-    text_description = f"A {speed} {mood} {sound_type} inspired by {artists}."
+    text_description = f"A {speed} {mood} {sound_type} inspired by {artists}. This audio is designed to be loopable."
     inputs = processor(text=[text_description], padding=True, return_tensors="pt")
     
     audio_values = model.generate(**inputs, max_new_tokens=256)

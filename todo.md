@@ -1,2 +1,3 @@
 - colors and emojis in cli 
+    - cli text matrix green
 - try larger model?
