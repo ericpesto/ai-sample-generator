@@ -67,5 +67,5 @@ coverage.xml
 # Jupyter Notebook
 .ipynb_checkpoints
 
-# Custom
-# Add your own custom files and directories that you want to ignore
+# Ignore all files in the output directory
+output/*

@@ -1,0 +1,2 @@
+- colors and emojis in cli 
+- try larger model?

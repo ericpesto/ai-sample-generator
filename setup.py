@@ -6,8 +6,7 @@ with open("README.md", "r") as fh:
 setup(
     name="ai-wav-generator",
     version="0.1.0",
-    author="Your Name",
-    author_email="your.email@example.com",
+    author="Eric Petsopoulos",
     description="An AI-powered WAV generator",
     long_description=long_description,
     long_description_content_type="text/markdown",

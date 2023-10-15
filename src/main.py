@@ -1,6 +1,10 @@
 from wav_generator import generate_wav
+from display_logo import display_logo
+
+
 
 def main():
+    display_logo()
     print("Welcome to the AI WAV Generator!")
     
     # Collect parameters through a Q/A dialogue
