@@ -1,0 +1,71 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# IDEs and editors
+/.idea
+.idea/
+*.swp
+*.swo
+*.swn
+*.bak
+*.sublime-*
+.vscode/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Custom
+# Add your own custom files and directories that you want to ignore
