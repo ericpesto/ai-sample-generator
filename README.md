@@ -1,4 +1,4 @@
-# AI WAV Generator
+# AI WAV Generator (wav.ai)
 
 ## Description
 
