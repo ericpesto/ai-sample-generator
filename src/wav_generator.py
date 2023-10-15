@@ -2,10 +2,8 @@ import os
 from datetime import datetime
 from transformers import AutoProcessor, MusicgenForConditionalGeneration
 import scipy.io.wavfile
-import time
 
 def generate_wav(speed, mood, artists, sound_type):
-    start_time = time.time()  # Record the start time
     processor = AutoProcessor.from_pretrained("facebook/musicgen-small")
     model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-medium")
     
@@ -14,10 +12,6 @@ def generate_wav(speed, mood, artists, sound_type):
     
     audio_values = model.generate(**inputs, max_new_tokens=256)
 
-    end_time = time.time()  # Record the end time
-    elapsed_time = end_time - start_time  # Calculate elapsed time
-    print(f"Sound generation took {elapsed_time:.2f} seconds.")  # Display the elapsed time
-    
     if not os.path.exists('output'):
         os.makedirs('output')
     
