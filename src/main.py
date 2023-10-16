@@ -22,10 +22,10 @@ class MainApp:
         self.cli.display_logo()
         self.cli.print_green("Welcome to the AI WAV Generator!")
         
-        length, quality, mood, artists, sound_type = self.cli.get_user_input()
-        self.wav_gen = WAVGenerator(mood, artists, sound_type, length, quality)
+        length, quality, bpm, mood, artists, sound_type = self.cli.get_user_input()  # Include bpm here
+        self.wav_gen = WAVGenerator(length, quality, bpm, mood, artists, sound_type)
         
-        if self.cli.confirm_and_generate(length, quality, mood, artists, sound_type):
+        if self.cli.confirm_and_generate(length, quality, bpm, mood, artists, sound_type):
             self.cli.print_green("Starting WAV generation... 🔊")
             
             # Start the timer thread only when the user has confirmed and just before starting the WAV generation
@@ -33,7 +33,7 @@ class MainApp:
             timer_thread.start()
             
             try:
-                self.wav_gen.generate()  # Assuming you've changed the method name to 'generate'
+                self.wav_gen.generate()
                 self.wav_generation_done_flag = True
             except Exception as e:
                 self.cli.print_green(f"An error occurred: {e}")

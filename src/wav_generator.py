@@ -4,12 +4,13 @@ from transformers import AutoProcessor, MusicgenForConditionalGeneration
 import scipy.io.wavfile
 
 class WAVGenerator:
-    def __init__(self, mood, artists, sound_type, length, quality):
+    def __init__(self, length, quality, bpm, mood, artists, sound_type):
+        self.length = length
+        self.quality = quality
+        self.bpm = bpm
         self.mood = mood
         self.artists = artists
         self.sound_type = sound_type
-        self.length = length
-        self.quality = quality
 
         self.length_mapping = {
             "short": 64,
@@ -28,7 +29,7 @@ class WAVGenerator:
         processor = AutoProcessor.from_pretrained(model_name)
         model = MusicgenForConditionalGeneration.from_pretrained(model_name)
         
-        text_description = f"A {self.mood} {self.sound_type} inspired by {self.artists}. This audio is designed to be loopable."
+        text_description = f"A {self.mood} {self.sound_type} inspired by {self.artists} at {self.bpm} BPM. This audio is designed to be loopable."
         inputs = processor(text=[text_description], padding=True, return_tensors="pt")
 
         max_new_tokens_value = self.length_mapping.get(self.length.lower(), 256)

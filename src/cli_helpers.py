@@ -21,7 +21,7 @@ class CLIHelpers:
 
         length = ''
         while length not in valid_lengths:
-            length = self.input_grey("What length do you want for your sample? (\033[1mshort\033[0m\033[90m/medium/long) ").lower() or 'short'
+            length = self.input_grey("What length do you want for your sample? (short/\033[1mmedium\033[0m\033[90m/long) ").lower() or 'medium'
             if length not in valid_lengths:
                 self.print_green("Invalid option. Please choose from 'short', 'medium', or 'long'.")
 
@@ -30,17 +30,18 @@ class CLIHelpers:
             quality = self.input_grey("What quality do you want for your sample? (\033[1mlow\033[0m\033[90m/medium/high) ").lower() or 'low'
             if quality not in valid_qualities:
                 self.print_green("Invalid option. Please choose from 'low', 'medium', or 'high'.")
-
+        bpm = self.input_grey("What BPM do you want for your sample? (Default: 120) ") or '120'
         mood = self.input_grey("What mood are you going for? (Default: beautiful) ") or 'beautiful'
         artists = self.input_grey("What artists would you like to sound like? (Default: boards of canada) ") or 'boards of canada'
         sound_type = self.input_grey("What type of sound would you like? (Default: synth pad) ") or 'synth pad'
 
-        return length, quality, mood, artists, sound_type
+        return length, quality, bpm, mood, artists, sound_type
 
-    def confirm_and_generate(self, length, quality, mood, artists, sound_type):
+    def confirm_and_generate(self, length, quality, bpm, mood, artists, sound_type):
         self.print_green(f"\nYou chose the following settings:")
         self.print_green(f"Length: {length}")
         self.print_green(f"Quality: {quality}")
+        self.print_green(f"BPM: {bpm}")
         self.print_green(f"Mood: {mood}")
         self.print_green(f"Artists: {artists}")
         self.print_green(f"Type of Sound: {sound_type}")

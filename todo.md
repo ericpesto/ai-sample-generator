@@ -1,4 +1,1 @@
-- colors and emojis in cli 
-    - cli text matrix green
-- add model option, smaal or large, ie. speed vs quality
-- sample length, short, medium, long
+- add musical key option that defaults to C and has user input validation
