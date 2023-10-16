@@ -1,5 +1,7 @@
 # AI WAV Generator (wav.ai)
 
+![Screenshot](https://drive.google.com/uc?export=view&id=1rBYxe1SXq_L6N5X0AM_J7DHGbevq3HLF)
+
 ## Description
 
 This project is an AI-powered WAV generator that allows you to create audio samples based on various parameters like speed, duration, mood, artists, and type of sound.
