@@ -40,7 +40,7 @@ class MainApp:
         self.setup()
         running = True
         while running:
-            self.wav_generation_done_flag.clear()  # Reset the flag for the new iteration
+            self.wav_generation_done_flag.clear()
             user_params = self.cli.get_user_input()
             proceed = self.cli.confirm_and_generate(*user_params)
             

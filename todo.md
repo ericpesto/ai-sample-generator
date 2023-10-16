@@ -1,1 +1,3 @@
-- listen to sample in cli? choose to save it?
+- replay mecahnism,
+ - single hit
+ - loop
