@@ -24,7 +24,6 @@ setup(
         "termcolor",
         "urllib3",
         "sounddevice",
-        "pygame"
         # Add other dependencies here
     ],
     entry_points={

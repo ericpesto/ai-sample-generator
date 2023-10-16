@@ -8,6 +8,9 @@ class CLIHelpers:
     def print_green(self, text, **kwargs):
         print(colored(text, 'green'), **kwargs)
     
+    def print_red(self, text, **kwargs):
+        print(colored(text, 'red'), **kwargs)
+    
     def print_cyan(self, text, **kwargs):
         print(colored(text, 'cyan'), **kwargs)
 
@@ -31,7 +34,9 @@ class CLIHelpers:
         wave_length = len(base_wave_pattern)
         wave_count = 0
 
-        while not wav_generation_done():
+        self.stop_animated_pattern_flag = False  # Reset the flag
+
+        while not wav_generation_done.is_set() and not self.stop_animated_pattern_flag:
             elapsed_time = time.time() - start_time
             start_index = wave_count % wave_length
             end_index = start_index + wave_length
@@ -73,19 +78,15 @@ class CLIHelpers:
         return length, quality, bpm, musical_key, mood, artists, sound_type
 
     def confirm_and_generate(self, length, quality, bpm, musical_key, mood, artists, sound_type):
-        self.print_green(f"\nYou chose the following settings:")
-        self.print_green(f"Length: {length}")
-        self.print_green(f"Quality: {quality}")
-        self.print_green(f"BPM: {bpm}")
-        self.print_green(f"Musical Key: {musical_key}")
-        self.print_green(f"Mood: {mood}")
-        self.print_green(f"Artists: {artists}")
-        self.print_green(f"Type of Sound: {sound_type}")
+        self.print_cyan(f"\nYou chose the following settings:")
+        self.print_cyan(f"Length: {length}")
+        self.print_cyan(f"Quality: {quality}")
+        self.print_cyan(f"BPM: {bpm}")
+        self.print_cyan(f"Musical Key: {musical_key}")
+        self.print_cyan(f"Mood: {mood}")
+        self.print_cyan(f"Artists: {artists}")
+        self.print_cyan(f"Type of Sound: {sound_type}")
 
         confirm = self.input_grey("\nDo you want to proceed with these settings? (yes/no) ").lower()
         return confirm == 'yes'
     
-    def prompt_continue_or_exit(self):
-        print("")
-        user_choice = self.input_grey("Do you want to generate another sample? (yes/no): ").strip().lower()
-        return user_choice == 'yes'
