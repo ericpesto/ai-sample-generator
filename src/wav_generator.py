@@ -40,6 +40,6 @@ class WAVGenerator:
         
         sampling_rate = model.config.audio_encoder.sampling_rate
         timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-        sample_name = f"{self.length}_{self.mood}_{self.sound_type}_{timestamp}.wav"
+        sample_name = f"{self.bpm}BPM_{self.length}_{self.mood}_{self.sound_type}_{timestamp}.wav"
         output_path = os.path.join('output', sample_name)
         scipy.io.wavfile.write(output_path, rate=sampling_rate, data=audio_values[0, 0].numpy())
