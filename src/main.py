@@ -20,10 +20,10 @@ class MainApp:
         self.cli.display_logo()
         self.cli.print_green("Welcome to the AI WAV Generator!")
         
-        length, quality, bpm, mood, artists, sound_type = self.cli.get_user_input()  # Include bpm here
-        self.wav_gen = WAVGenerator(length, quality, bpm, mood, artists, sound_type)
+        length, quality, bpm, musical_key, mood, artists, sound_type = self.cli.get_user_input()  # Include bpm here
+        self.wav_gen = WAVGenerator(length, quality, bpm, musical_key, mood, artists, sound_type)
         
-        if self.cli.confirm_and_generate(length, quality, bpm, mood, artists, sound_type):
+        if self.cli.confirm_and_generate(length, quality, bpm, musical_key, mood, artists, sound_type):
             self.cli.print_green("Starting WAV generation... 🔊")
             
             # Start the timer thread only when the user has confirmed and just before starting the WAV generation

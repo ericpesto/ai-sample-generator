@@ -1,1 +1,2 @@
 - add musical key option that defaults to C and has user input validation
+- fix timer

@@ -4,10 +4,11 @@ from transformers import AutoProcessor, MusicgenForConditionalGeneration
 import scipy.io.wavfile
 
 class WAVGenerator:
-    def __init__(self, length, quality, bpm, mood, artists, sound_type):
+    def __init__(self, length, quality, bpm, musical_key, mood, artists, sound_type):
         self.length = length
         self.quality = quality
         self.bpm = bpm
+        self.musical_key = musical_key
         self.mood = mood
         self.artists = artists
         self.sound_type = sound_type
@@ -21,7 +22,7 @@ class WAVGenerator:
         self.quality_mapping = {
             "low": "facebook/musicgen-small",
             "medium": "facebook/musicgen-medium",
-            "high": "facebook/musicgen-large"  # Replace with the actual high-quality model name
+            "high": "facebook/musicgen-large"
         }
 
     def generate(self):
@@ -29,7 +30,8 @@ class WAVGenerator:
         processor = AutoProcessor.from_pretrained(model_name)
         model = MusicgenForConditionalGeneration.from_pretrained(model_name)
         
-        text_description = f"A {self.mood} {self.sound_type} inspired by {self.artists} at {self.bpm} BPM. This audio is designed to be loopable."
+        # text_description = f"A {self.mood} {self.sound_type} inspired by {self.artists} at {self.bpm}BPM in the key of {self.musical_key}. This audio is designed to be loopable."
+        text_description = f"A loopable, performance-ready {self.mood} {self.sound_type} sample inspired by {self.artists}. This audio is designed for seamless looping and integration into live sets and compositions so it must be crafted at exactly {self.bpm}BPM in the exact key of {self.musical_key}."
         inputs = processor(text=[text_description], padding=True, return_tensors="pt")
 
         max_new_tokens_value = self.length_mapping.get(self.length.lower(), 256)
@@ -40,6 +42,6 @@ class WAVGenerator:
         
         sampling_rate = model.config.audio_encoder.sampling_rate
         timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-        sample_name = f"{self.bpm}BPM_{self.length}_{self.mood}_{self.sound_type}_{timestamp}.wav"
+        sample_name = f"{self.musical_key}_{self.bpm}BPM_{self.length}_{self.mood}_{self.sound_type}_{timestamp}.wav"
         output_path = os.path.join('output', sample_name)
         scipy.io.wavfile.write(output_path, rate=sampling_rate, data=audio_values[0, 0].numpy())
