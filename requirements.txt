@@ -1,5 +1,4 @@
-transformers==4.34.0
-scipy==1.11.3
-soundfile==0.12.1
-torch==2.1.0
-torchaudio==2.1.0
+termcolor
+transformers
+scipy
+urllib3
