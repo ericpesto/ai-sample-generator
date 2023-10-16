@@ -1,2 +1,1 @@
-- add musical key option that defaults to C and has user input validation
-- fix timer
+- listen to sample in cli? choose to save it?

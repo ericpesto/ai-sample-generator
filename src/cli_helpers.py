@@ -1,6 +1,10 @@
 from termcolor import colored
+import time
 
 class CLIHelpers:
+    def __init__(self):
+        self.stop_animated_pattern_flag = False
+
     def print_green(self, text, **kwargs):
         print(colored(text, 'green'), **kwargs)
 
@@ -16,6 +20,25 @@ class CLIHelpers:
         print(" ")
         print("\033[94m \\\033[0m\033[92m \\\033[0m\033[93m \\\033[0m\033[95m \\\033[0m\033[96m \\\033[0m\033[91m \\\033[0m\033[94m \\\033[0m\033[92m \\\033[0m\033[93m \\\033[0m\033[95m \\\033[0m\033[96m \\\033[0m\033[91m \\\033[0m\033[94m \\\033[0m\033[92m \\\033[0m\033[93m \\\033[0m\033[95m \\\033[0m\033[96m \\\033[0m\033[91m \\\033[0m\033[94m\033[0m")
         print(" ")
+
+    def display_animated_wave_with_timer(self, wav_generation_done):
+        start_time = time.time()
+        base_wave_pattern = "▁▂▃▄▅▆▇█▇▆▅▄▃▂▁"
+        long_wave_pattern = base_wave_pattern * 3  # Repeat the pattern to make it longer
+        wave_length = len(base_wave_pattern)
+        wave_count = 0
+
+        while not wav_generation_done():
+            elapsed_time = time.time() - start_time
+            start_index = wave_count % wave_length
+            end_index = start_index + wave_length
+            wave = long_wave_pattern[start_index:end_index]
+            print(colored(f"\rGenerating WAV... {wave} (Elapsed time: {elapsed_time:.2f} seconds)", 'cyan'), end='', flush=True)
+            wave_count += 1
+            time.sleep(0.2)
+
+    def stop_animated_pattern(self):
+        self.stop_animated_pattern_flag = True
 
     def get_user_input(self):
         valid_lengths = ['short', 'medium', 'long']
@@ -58,3 +81,8 @@ class CLIHelpers:
 
         confirm = self.input_grey("\nDo you want to proceed with these settings? (yes/no) ").lower()
         return confirm == 'yes'
+    
+    def prompt_continue_or_exit(self):
+        print("")
+        user_choice = self.input_grey("Do you want to generate another sample? (yes/no): ").strip().lower()
+        return user_choice == 'yes'
