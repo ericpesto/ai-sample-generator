@@ -1,50 +1,50 @@
+from cli_helpers import CLIHelpers
+from timer import Timer
+from wav_generator import WAVGenerator
 import threading
-from wav_generator import generate_wav
-from display_logo import display_logo
-from timer import timer
+import warnings
+from urllib3.exceptions import NotOpenSSLWarning
 
-def main():
-    wav_generation_done_flag = False
+class MainApp:
+    def __init__(self):
+        self.wav_generation_done_flag = False
+        self.cli = CLIHelpers()
+        self.timer = Timer(self.wav_generation_done)
+        self.wav_gen = None
 
-    def wav_generation_done():
-        return wav_generation_done_flag
-    
-    display_logo()
-    print("Welcome to the AI WAV Generator!")
-    
-    # Collect parameters through a Q/A dialogue
-    length = input("What length do you want for your sample? (short/medium/long) ")
-    quality = input("What quality do you want for your sample? (low/medium/high) ")
-    mood = input("What mood are you going for? (Default: beautiful) ") or 'beautiful'
-    artists = input("What artists would you like to sound like? (Default: boards of canada) ") or 'boards of canada'
-    sound_type = input("What type of sound would you like? (Default: synth pad) ") or 'synth pad'
-    
-    # Print a summary of the user's choices
-    print(f"\nYou chose the following settings:")
-    print(f"Length: {length}")
-    print(f"Quality: {quality}")
-    print(f"Mood: {mood}")
-    print(f"Artists: {artists}")
-    print(f"Type of Sound: {sound_type}")
-    # musical key?
-    # effects?
-    
-    # Confirm before generating
-    confirm = input("\nDo you want to proceed with these settings? (yes/no) ").lower()
-    if confirm == 'yes':
-        print("Generating WAV file... 🔊")
-        # Start the timer thread
-        timer_thread = threading.Thread(target=timer, args=(wav_generation_done,))
-        timer_thread.start()
-        # Call your core functionality here
-        generate_wav(mood=mood, artists=artists, sound_type=sound_type, length=length, quality=quality)
-        # Signal that the sound generation is done
-        wav_generation_done_flag = True
-        # Wait for the timer thread to finish
-        timer_thread.join()
-        print("Done generating WAV file! 🎉")
-    else:
-        print("Aborted. Run the program again to try different settings.")
+    def wav_generation_done(self):
+        return self.wav_generation_done_flag
+
+    def run(self):
+        warnings.filterwarnings('ignore', category=NotOpenSSLWarning)
+        warnings.filterwarnings('ignore', message='torch.nn.utils.weight_norm is deprecated')
+
+        self.cli.display_logo()
+        self.cli.print_green("Welcome to the AI WAV Generator!")
+        
+        length, quality, mood, artists, sound_type = self.cli.get_user_input()
+        self.wav_gen = WAVGenerator(mood, artists, sound_type, length, quality)
+        
+        if self.cli.confirm_and_generate(length, quality, mood, artists, sound_type):
+            self.cli.print_green("Starting WAV generation... 🔊")
+            
+            # Start the timer thread only when the user has confirmed and just before starting the WAV generation
+            timer_thread = threading.Thread(target=self.timer.start_timer)
+            timer_thread.start()
+            
+            try:
+                self.wav_gen.generate()  # Assuming you've changed the method name to 'generate'
+                self.wav_generation_done_flag = True
+            except Exception as e:
+                self.cli.print_green(f"An error occurred: {e}")
+            
+            # Wait for the timer thread to finish
+            timer_thread.join()
+            
+            self.cli.print_green("Done ✅")
+
 
 if __name__ == "__main__":
-    main()
+    app = MainApp()
+    app.run()
+
