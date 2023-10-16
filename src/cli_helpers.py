@@ -21,13 +21,13 @@ class CLIHelpers:
 
         length = ''
         while length not in valid_lengths:
-            length = self.input_grey("What length do you want for your sample? (short/medium/long) ").lower() or 'short'
+            length = self.input_grey("What length do you want for your sample? (\033[1mshort\033[0m\033[90m/medium/long) ").lower() or 'short'
             if length not in valid_lengths:
                 self.print_green("Invalid option. Please choose from 'short', 'medium', or 'long'.")
 
         quality = ''
         while quality not in valid_qualities:
-            quality = self.input_grey("What quality do you want for your sample? (low/medium/high) ").lower() or 'low'
+            quality = self.input_grey("What quality do you want for your sample? (\033[1mlow\033[0m\033[90m/medium/high) ").lower() or 'low'
             if quality not in valid_qualities:
                 self.print_green("Invalid option. Please choose from 'low', 'medium', or 'high'.")
 
