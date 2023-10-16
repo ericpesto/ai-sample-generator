@@ -3,7 +3,6 @@ from timer import Timer
 from wav_generator import WAVGenerator
 import threading
 import warnings
-from urllib3.exceptions import NotOpenSSLWarning
 
 class MainApp:
     def __init__(self):
@@ -16,7 +15,6 @@ class MainApp:
         return self.wav_generation_done_flag
 
     def run(self):
-        warnings.filterwarnings('ignore', category=NotOpenSSLWarning)
         warnings.filterwarnings('ignore', message='torch.nn.utils.weight_norm is deprecated')
 
         self.cli.display_logo()
@@ -42,7 +40,6 @@ class MainApp:
             timer_thread.join()
             
             self.cli.print_green("Done ✅")
-
 
 if __name__ == "__main__":
     app = MainApp()
