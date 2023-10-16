@@ -24,12 +24,12 @@ setup(
         "termcolor",
         "urllib3",
         "sounddevice",
-        "ipython"
+        "pygame"
         # Add other dependencies here
     ],
     entry_points={
         "console_scripts": [
-            "ai-wav-generator=src.main:main",  # Make sure this matches your project structure
+            "ai-wav-generator=src.main:main", 
         ],
     },
 )

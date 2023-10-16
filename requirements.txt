@@ -3,4 +3,4 @@ transformers
 scipy
 urllib3
 sounddevice
-ipython
+pygame

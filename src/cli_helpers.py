@@ -7,6 +7,9 @@ class CLIHelpers:
 
     def print_green(self, text, **kwargs):
         print(colored(text, 'green'), **kwargs)
+    
+    def print_cyan(self, text, **kwargs):
+        print(colored(text, 'cyan'), **kwargs)
 
     def input_grey(self, prompt):
         print(colored(prompt, 'grey'), end='')
@@ -24,7 +27,7 @@ class CLIHelpers:
     def display_animated_wave_with_timer(self, wav_generation_done):
         start_time = time.time()
         base_wave_pattern = "▁▂▃▄▅▆▇█▇▆▅▄▃▂▁"
-        long_wave_pattern = base_wave_pattern * 3  # Repeat the pattern to make it longer
+        long_wave_pattern = base_wave_pattern * 3 
         wave_length = len(base_wave_pattern)
         wave_count = 0
 
@@ -33,7 +36,7 @@ class CLIHelpers:
             start_index = wave_count % wave_length
             end_index = start_index + wave_length
             wave = long_wave_pattern[start_index:end_index]
-            print(colored(f"\rGenerating WAV... {wave} (Elapsed time: {elapsed_time:.2f} seconds)", 'cyan'), end='', flush=True)
+            print(f"\r\033[35mGenerating WAV...\033[0m \033[32m{wave}\033[0m \033[35m(Elapsed time: {elapsed_time:.2f} seconds)\033[0m", end='', flush=True)
             wave_count += 1
             time.sleep(0.2)
 
