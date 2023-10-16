@@ -30,8 +30,8 @@ class WAVGenerator:
         processor = AutoProcessor.from_pretrained(model_name)
         model = MusicgenForConditionalGeneration.from_pretrained(model_name)
         
-        # text_description = f"A {self.mood} {self.sound_type} inspired by {self.artists} at {self.bpm}BPM in the key of {self.musical_key}. This audio is designed to be loopable."
-        text_description = f"A loopable, performance-ready {self.mood} {self.sound_type} sample inspired by {self.artists}. This audio is designed for seamless looping and integration into live sets and compositions so it must be crafted at exactly {self.bpm}BPM in the exact key of {self.musical_key}."
+        # text_description = f"A loopable, performance-ready {self.mood} {self.sound_type} sample inspired by {self.artists}. This audio is designed for seamless looping for integration into live sets and compositions so it must be exactly {self.bpm}BPM and in the exact key of {self.musical_key}."
+        text_description = f"A loopable, performance-ready {self.mood} {self.sound_type} sample inspired by {self.artists}. This audio is engineered for seamless looping and is optimized for integration into live sets and compositions. It aims to be exactly {self.bpm}BPM and in the key of {self.musical_key}. Note: For critical applications, both the BPM and musical key should be manually verified."
         inputs = processor(text=[text_description], padding=True, return_tensors="pt")
 
         max_new_tokens_value = self.length_mapping.get(self.length.lower(), 256)
