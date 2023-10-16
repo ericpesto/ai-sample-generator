@@ -1,7 +1,5 @@
-import os
-from datetime import datetime
 from transformers import AutoProcessor, MusicgenForConditionalGeneration
-import scipy.io.wavfile
+import numpy as np
 
 class WAVGenerator:
     def __init__(self, length, quality, bpm, musical_key, mood, artists, sound_type):
@@ -25,6 +23,9 @@ class WAVGenerator:
             "high": "facebook/musicgen-large"
         }
 
+        self.generated_audio_data = None  # Store generated audio data
+        self.generated_sampling_rate = None  # Store generated audio sampling rate
+
     def generate(self):
         model_name = self.quality_mapping.get(self.quality.lower(), "facebook/musicgen-small")
         processor = AutoProcessor.from_pretrained(model_name)
@@ -34,14 +35,9 @@ class WAVGenerator:
         text_description = f"A loopable, performance-ready {self.mood} {self.sound_type} sample inspired by {self.artists}. This audio is engineered for seamless looping and is optimized for integration into live sets and compositions. It aims to be exactly {self.bpm}BPM and in the key of {self.musical_key}. Note: For critical applications, both the BPM and musical key should be manually verified."
         inputs = processor(text=[text_description], padding=True, return_tensors="pt")
 
-        max_new_tokens_value = self.length_mapping.get(self.length.lower(), 256)
+        max_new_tokens_value = self.length_mapping.get(self.length.lower(), 64)
         audio_values = model.generate(**inputs, max_new_tokens=max_new_tokens_value)
 
-        if not os.path.exists('output'):
-            os.makedirs('output')
-        
-        sampling_rate = model.config.audio_encoder.sampling_rate
-        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-        sample_name = f"{self.musical_key}_{self.bpm}BPM_{self.length}_{self.mood}_{self.sound_type}_{timestamp}.wav"
-        output_path = os.path.join('output', sample_name)
-        scipy.io.wavfile.write(output_path, rate=sampling_rate, data=audio_values[0, 0].numpy())
+        # Store the generated audio data and sampling rate as class attributes
+        self.generated_audio_data = audio_values[0, 0].numpy().astype(np.float32)
+        self.generated_sampling_rate = model.config.audio_encoder.sampling_rate

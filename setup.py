@@ -23,6 +23,8 @@ setup(
         "scipy",
         "termcolor",
         "urllib3",
+        "sounddevice",
+        "ipython"
         # Add other dependencies here
     ],
     entry_points={

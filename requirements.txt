@@ -2,3 +2,5 @@ termcolor
 transformers
 scipy
 urllib3
+sounddevice
+ipython
