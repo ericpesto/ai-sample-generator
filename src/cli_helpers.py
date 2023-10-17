@@ -6,23 +6,26 @@ class CLIHelpers:
         self.stop_animated_pattern_flag = False
 
     def print_green(self, text, **kwargs):
-        print(colored(text, 'green'), **kwargs)
+        print(f"\033[32m{text}\033[0m", **kwargs)  # ANSI code for regular green is \033[32m
+
+    def print_orange(self, text, **kwargs):
+        print(f"\033[91m{text}\033[0m", **kwargs)
     
     def print_red(self, text, **kwargs):
-        print(colored(text, 'red'), **kwargs)
-    
+        print(f"\033[91m{text}\033[0m", **kwargs)
+
     def print_cyan(self, text, **kwargs):
-        print(colored(text, 'cyan'), **kwargs)
+        print(f"\033[96m{text}\033[0m", **kwargs)
 
     def input_grey(self, prompt):
-        print(colored(prompt, 'grey'), end='')
+        print(f"\033[39m{prompt}\033[0m", end='')
         return input()
 
     def display_logo(self):
         print(" ")
         print("\033[94m \\\033[0m\033[92m \\\033[0m\033[93m \\\033[0m\033[95m \\\033[0m\033[96m \\\033[0m\033[91m \\\033[0m\033[94m \\\033[0m\033[92m \\\033[0m\033[93m \\\033[0m\033[95m \\\033[0m\033[96m \\\033[0m\033[91m \\\033[0m\033[94m \\\033[0m\033[92m \\\033[0m\033[93m \\\033[0m\033[95m \\\033[0m\033[96m \\\033[0m\033[91m \\\033[0m\033[94m\033[0m")
         print(" ")
-        print("         \033[90mw  a  v  .  a  i\033[0m")
+        print("           \033[97mw  a  v  .  a  i\033[0m") 
         print(" ")
         print("\033[94m \\\033[0m\033[92m \\\033[0m\033[93m \\\033[0m\033[95m \\\033[0m\033[96m \\\033[0m\033[91m \\\033[0m\033[94m \\\033[0m\033[92m \\\033[0m\033[93m \\\033[0m\033[95m \\\033[0m\033[96m \\\033[0m\033[91m \\\033[0m\033[94m \\\033[0m\033[92m \\\033[0m\033[93m \\\033[0m\033[95m \\\033[0m\033[96m \\\033[0m\033[91m \\\033[0m\033[94m\033[0m")
         print(" ")
@@ -55,21 +58,21 @@ class CLIHelpers:
 
         length = ''
         while length not in valid_lengths:
-            length = self.input_grey("What length do you want for your sample? (short/\033[1mmedium\033[0m\033[90m/long) ").lower() or 'medium'
+            length = self.input_grey("What length do you want for your sample? (short/\033[1mmedium\033[0m\033[39m/long) ").lower() or 'medium'
             if length not in valid_lengths:
-                self.print_green("Invalid option. Please choose from 'short', 'medium', or 'long'.")
+                self.print_orange("Invalid option. Please choose from 'short', 'medium', or 'long'.")
 
         quality = ''
         while quality not in valid_qualities:
-            quality = self.input_grey("What quality do you want for your sample? (\033[1mlow\033[0m\033[90m/medium/high) ").lower() or 'low'
+            quality = self.input_grey("What quality do you want for your sample? (\033[1mlow\033[0m\033[39m/medium/high) ").lower() or 'low'
             if quality not in valid_qualities:
-                self.print_green("Invalid option. Please choose from 'low', 'medium', or 'high'.")
+                self.print_orange("Invalid option. Please choose from 'low', 'medium', or 'high'.")
         bpm = self.input_grey("What BPM do you want for your sample? (Default: 120) ") or '120'
         musical_key = ''
         while musical_key not in valid_keys:
             musical_key = self.input_grey("What musical key do you want for your sample? (Default: C) ").upper() or 'C'
             if musical_key not in valid_keys:
-                self.print_green("Invalid option. Please choose a valid musical key.")
+                self.print_orange("Invalid option. Please choose a valid musical key.")
 
         mood = self.input_grey("What mood are you going for? (Default: beautiful) ") or 'beautiful'
         artists = self.input_grey("What artists would you like to sound like? (Default: boards of canada) ") or 'boards of canada'

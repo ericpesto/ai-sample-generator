@@ -31,7 +31,7 @@ class WAVGenerator:
         self.model = MusicgenForConditionalGeneration.from_pretrained(model_name)
 
     def generate_text_description(self):
-        return f"A loopable, performance-ready {self.mood} {self.sound_type} sample inspired by {self.artists}. This audio is engineered for seamless looping and is optimized for integration into live sets and compositions. It aims to be exactly {self.bpm}BPM and in the key of {self.musical_key}. Note: For critical applications, both the BPM and musical key should be manually verified."
+        return f"A loopable, performance-ready {self.mood} {self.sound_type} sample inspired by {self.artists}. This audio is engineered for seamless looping and it aims to be exactly {self.bpm}BPM and in the key of {self.musical_key}."
 
     def generate(self):
         self.init_model()

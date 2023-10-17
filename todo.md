@@ -1,3 +1,4 @@
 - replay mecahnism,
  - single hit
  - loop
+- run programme without having to open the code, easy way,desktop app that opens terminal?

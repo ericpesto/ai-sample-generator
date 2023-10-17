@@ -20,6 +20,7 @@ class MainApp:
 
     def get_user_decision(self):
         user_input = self.cli.input_grey("Do you want to generate another sample? (yes/no): ").strip().lower()
+        print(" ")
         return user_input == 'yes'
 
     def generate_and_play_audio(self):
