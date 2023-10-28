@@ -23,16 +23,27 @@ class MainApp:
         print(" ")
         return user_input == 'yes'
 
-    def generate_and_play_audio(self):
+    def generate_and_preview_audio(self):
         self.wav_gen.generate()
         self.wav_generation_done_flag.set()
         self.cli.print_green("\nPreviewing the generated audio... 🔊")
-        sd.play(self.wav_gen.generated_audio_data, samplerate=self.wav_gen.generated_sampling_rate)
-        sd.wait()
+        
+        def play_audio():
+            sd.play(self.wav_gen.generated_audio_data, samplerate=self.wav_gen.generated_sampling_rate)
+            sd.wait()
+
+        play_audio()  # Play the audio for the first time
+
+        while True:
+            replay = self.cli.input_grey("Press 'p' to replay or any other key to continue: ").strip().lower()
+            if replay == 'p':
+                play_audio()
+            else:
+                break
 
     def save_generated_audio(self):
         timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-        sample_name = f"{self.wav_gen.musical_key}_{self.wav_gen.bpm}BPM_{self.wav_gen.length}_{self.wav_gen.mood}_{self.wav_gen.sound_type}_{timestamp}.wav"
+        sample_name = f"{self.wav_gen.mood}_{self.wav_gen.sound_type}_{self.wav_gen.length}_{timestamp}.wav"
         output_path = os.path.join('output', sample_name)
         scipy.io.wavfile.write(output_path, rate=self.wav_gen.generated_sampling_rate, data=self.wav_gen.generated_audio_data)
         self.cli.print_green(f"Saved in './{output_path}' 💾")
@@ -55,7 +66,7 @@ class MainApp:
             wave_thread.start()
 
             try:
-                self.generate_and_play_audio()
+                self.generate_and_preview_audio()
                 self.wav_generation_done_flag.set()
                 save_audio = self.cli.input_grey("Do you want to save this audio? (yes/no): ").strip().lower()
                 if save_audio == 'yes':

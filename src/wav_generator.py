@@ -3,9 +3,9 @@ import numpy as np
 
 class WAVGenerator:
     length_mapping = {
-        "short": 64,
-        "medium": 128,
-        "long": 256
+        "short": 128,
+        "medium": 256,
+        "long": 512
     }
 
     quality_mapping = {
@@ -14,11 +14,9 @@ class WAVGenerator:
         "high": "facebook/musicgen-large"
     }
 
-    def __init__(self, length, quality, bpm, musical_key, mood, artists, sound_type):
+    def __init__(self, length, quality, mood, artists, sound_type):
         self.length = length
         self.quality = quality
-        self.bpm = bpm
-        self.musical_key = musical_key
         self.mood = mood
         self.artists = artists
         self.sound_type = sound_type
@@ -31,7 +29,7 @@ class WAVGenerator:
         self.model = MusicgenForConditionalGeneration.from_pretrained(model_name)
 
     def generate_text_description(self):
-        return f"A loopable, performance-ready {self.mood} {self.sound_type} sample inspired by {self.artists}. This audio is engineered for seamless looping and it aims to be exactly {self.bpm}BPM and in the key of {self.musical_key}."
+        return f"A loopable, performance-ready {self.mood} {self.sound_type} sample inspired by {self.artists}."
 
     def generate(self):
         self.init_model()
