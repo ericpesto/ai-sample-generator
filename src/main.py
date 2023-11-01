@@ -43,7 +43,7 @@ class MainApp:
 
     def save_generated_audio(self):
         timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-        sample_name = f"{self.wav_gen.mood}_{self.wav_gen.sound_type}_{self.wav_gen.length}_{timestamp}.wav"
+        sample_name = f"{self.wav_gen.mood}_{self.wav_gen.genre}_{self.wav_gen.sound_type}_{self.wav_gen.length}_{timestamp}.wav"
         output_path = os.path.join('output', sample_name)
         scipy.io.wavfile.write(output_path, rate=self.wav_gen.generated_sampling_rate, data=self.wav_gen.generated_audio_data)
         self.cli.print_green(f"Saved in './{output_path}' 💾")

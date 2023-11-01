@@ -14,11 +14,11 @@ class WAVGenerator:
         "high": "facebook/musicgen-large"
     }
 
-    def __init__(self, length, quality, mood, artists, sound_type):
+    def __init__(self, length, quality, mood, genre, sound_type):
         self.length = length
         self.quality = quality
         self.mood = mood
-        self.artists = artists
+        self.genre = genre
         self.sound_type = sound_type
         self.generated_audio_data = None
         self.generated_sampling_rate = None
@@ -29,7 +29,7 @@ class WAVGenerator:
         self.model = MusicgenForConditionalGeneration.from_pretrained(model_name)
 
     def generate_text_description(self):
-        return f"A loopable, performance-ready {self.mood} {self.sound_type} sample inspired by {self.artists}."
+        return f"A loopable, performance-ready {self.mood} {self.genre} {self.sound_type} sample."
 
     def generate(self):
         self.init_model()

@@ -67,18 +67,18 @@ class CLIHelpers:
             if quality not in valid_qualities:
                 self.print_orange("Invalid option. Please choose from 'low', 'medium', or 'high'.")
 
-        mood = self.input_grey("What mood are you going for? (Default: beautiful lofi) ") or 'beautiful lofi'
-        artists = self.input_grey("What artists would you like to sound like? (Default: boards of canada) ") or 'boards of canada'
+        mood = self.input_grey("What mood are you going for? (Default: beautiful warm nostalgia) ") or 'beautiful warm nostalgia'
+        genre = self.input_grey("What genre are you going for? (Default: ambient) ") or 'ambient'
         sound_type = self.input_grey("What type of sound would you like? (Default: synth pad) ") or 'synth pad'
 
-        return length, quality, mood, artists, sound_type
+        return length, quality, mood, genre, sound_type
 
-    def confirm_and_generate(self, length, quality, mood, artists, sound_type):
+    def confirm_and_generate(self, length, quality, mood, genre, sound_type):
         self.print_cyan(f"\nYou chose the following settings:")
         self.print_cyan(f"Length: {length}")
         self.print_cyan(f"Quality: {quality}")
         self.print_cyan(f"Mood: {mood}")
-        self.print_cyan(f"Artists: {artists}")
+        self.print_cyan(f"Genre: {genre}")
         self.print_cyan(f"Type of Sound: {sound_type}")
 
         confirm = self.input_grey("\nDo you want to proceed with these settings? (yes/no) ").lower()
